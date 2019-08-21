@@ -12,11 +12,10 @@ module Swaggard
   class Engine < ::Rails::Engine
     isolate_namespace Swaggard
 
-    initializer 'swaggard.finisher_hook', after: :set_routes_reloader_hook do |app|
-      app.reload_routes!
+    initializer 'swaggard.finisher_hook' do |app|
+      # app.reload_routes!
 
-      Swaggard.configure do |config|
-        unless config.controllers_path
+      Swaggard.configure do |config|        unless config.controllers_path
           config.controllers_path = "#{app.root}/app/controllers/**/*.rb"
         end
 
